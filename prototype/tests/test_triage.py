@@ -186,6 +186,15 @@ class TriageTests(unittest.TestCase):
         self.config["requirements"][-1]["value"] = 12
         self.assertEqual(self.results()[0]["E"]["status"], "ineligible")
 
+    def test_configured_priority_change_can_reverse_the_ranking(self):
+        weights = {"experience": 0, "price": 10, "timeline": 15, "warranty": 60, "team": 15}
+        self.config["version"] = "solar-v2-warranty-priority"
+        for criterion in self.config["criteria"]:
+            criterion["weight"] = weights[criterion["id"]]
+        rows, _ = self.results()
+        self.assertEqual((rows["E"]["rank"], rows["E"]["score"]), (1, 85.42))
+        self.assertEqual((rows["A"]["rank"], rows["A"]["score"]), (2, 83.67))
+
     def test_invalid_weights_rejected(self):
         for value in [29, -1, True]:
             with self.subTest(value=value):
@@ -328,9 +337,24 @@ class TriageTests(unittest.TestCase):
         self.assertNotIn("private body", str(caught.exception))
 
     def test_network_error_is_controlled(self):
-        with mock.patch.object(t.request, "urlopen", side_effect=error.URLError("test")):
-            with self.assertRaisesRegex(ValueError, "network request failed"):
-                t.extract(self.config, "A", "text", "test-model", "unit-test-key")
+        for failure in [error.URLError("test"), TimeoutError("test")]:
+            with self.subTest(failure=type(failure).__name__):
+                with mock.patch.object(t.request, "urlopen", side_effect=failure):
+                    with self.assertRaisesRegex(ValueError, "network request failed"):
+                        t.extract(self.config, "A", "text", "test-model", "unit-test-key")
+
+    def test_malformed_api_root_is_controlled(self):
+        with self.assertRaises(ValueError):
+            self.live([])
+
+    def test_malformed_api_content_is_controlled(self):
+        for content in [[None], [{"type": "output_text", "text": 123}]]:
+            with self.subTest(content=content), self.assertRaises(ValueError):
+                self.live(self.response(content=content))
+
+    def test_nonobject_config_is_controlled(self):
+        with self.assertRaises(ValueError):
+            t.validate_config([])
 
     def test_missing_api_credentials_do_not_call_network(self):
         with mock.patch.object(t.request, "urlopen") as network:
@@ -367,6 +391,27 @@ class TriageTests(unittest.TestCase):
             for fact in row["facts"].values():
                 for evidence in fact["evidence"]:
                     self.assertIsNone(evidence["quote"])
+
+    def test_readme_links_resolve_and_index_all_submission_files(self):
+        readme = (t.ROOT / "README.md").read_text(encoding="utf-8")
+        links = {target for target in re.findall(r"\]\(([^)]+)\)", readme) if "://" not in target}
+        for target in links:
+            self.assertTrue((t.ROOT / target).is_file(), target)
+        public_files = {str(path.relative_to(t.ROOT)).replace(os.sep, "/")
+                        for path in t.ROOT.rglob("*") if path.is_file()
+                        and not any(part == ".git" or part == "__pycache__" or part.startswith(".local")
+                                    or part == ".private" for part in path.relative_to(t.ROOT).parts)}
+        self.assertEqual(public_files - links, set())
+
+    def test_cli_bad_config_is_a_controlled_error(self):
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder) / "bad.json"
+            path.write_text("[]", encoding="utf-8")
+            run = subprocess.run([sys.executable, str(t.ROOT / "prototype/triage.py"),
+                                  "--config", str(path), "schema"], capture_output=True, text=True)
+            self.assertEqual(run.returncode, 2)
+            self.assertIn("Configuration must be a JSON object", run.stderr)
+            self.assertNotIn("Traceback", run.stderr)
 
 
 if __name__ == "__main__":

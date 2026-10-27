@@ -52,8 +52,9 @@ locally from live API and hosted checks that remain unperformed.
 
 ChatGPT assisted with interpreting the brief, drafting the design and prompts,
 creating the diagram, implementing the prototype, and running verification.
-An earlier AI plan left numeric scoring anchors unspecified; this was corrected
-by defining an explicit versioned rubric before calculating sample scores.
+Tests found that the draft AI-generated client assumed API JSON always had the
+expected object shape; this was corrected with explicit shape checks and
+regression tests that reject malformed responses safely.
 No live model extraction was performed: the public demo uses derived structured
 facts rather than a claimed AI extraction log.
 

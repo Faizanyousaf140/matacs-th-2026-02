@@ -5,7 +5,6 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-import math
 import os
 from pathlib import Path
 import re
@@ -113,9 +112,13 @@ def criterion_fields(criterion):
 
 
 def validate_config(config):
+    if not isinstance(config, dict):
+        raise ValueError("Configuration must be a JSON object")
     if not isinstance(config.get("version"), str) or not config["version"].strip():
         raise ValueError("Configuration needs a version")
     fields = config.get("fields", [])
+    if not isinstance(fields, list) or any(not isinstance(f, dict) or "id" not in f or "type" not in f for f in fields):
+        raise ValueError("Configuration fields must be field-definition objects")
     types = {f["id"]: f["type"] for f in fields}
     if not fields or len(types) != len(fields):
         raise ValueError("Field IDs must be nonempty and unique")
@@ -125,6 +128,8 @@ def validate_config(config):
         if kind not in {"boolean", "number", "integer"}:
             raise ValueError("Unsupported field type")
     criteria = config.get("criteria", [])
+    if not isinstance(criteria, list) or any(not isinstance(c, dict) for c in criteria):
+        raise ValueError("Criteria must be a list of objects")
     ids = [c["id"] for c in criteria]
     if not ids or len(ids) != len(set(ids)):
         raise ValueError("Criterion IDs must be unique")
@@ -355,15 +360,27 @@ def extract(config, proposal, text, model, api_key):
         raise ValueError(f"Extraction API returned HTTP {exc.code}; no result was accepted") from None
     except (error.URLError, TimeoutError):
         raise ValueError("Extraction network request failed; no result was accepted") from None
+    if not isinstance(result, dict):
+        raise ValueError("Extraction API response must be an object")
     if result.get("status") != "completed":
         raise ValueError("Extraction response incomplete; human review required")
-    content = [part for output in result.get("output", []) if output.get("type") == "message"
-               for part in output.get("content", [])]
+    output_items = result.get("output", [])
+    if not isinstance(output_items, list) or any(not isinstance(item, dict) for item in output_items):
+        raise ValueError("Malformed extraction output list")
+    content = []
+    for output in output_items:
+        if output.get("type") == "message":
+            parts = output.get("content", [])
+            if not isinstance(parts, list) or any(not isinstance(part, dict) for part in parts):
+                raise ValueError("Malformed extraction message content")
+            content.extend(parts)
     if any(part.get("type") == "refusal" for part in content):
         raise ValueError("Extraction refused; human review required")
     outputs = [part["text"] for part in content if part.get("type") == "output_text"]
     if not outputs:
         raise ValueError("Extraction response contained no JSON text")
+    if any(not isinstance(value, str) for value in outputs):
+        raise ValueError("Extraction output text must be a string")
     record = strict_loads("".join(outputs))
     validate_record(record, config, source_text=text)
     if record["proposal"] != proposal:
