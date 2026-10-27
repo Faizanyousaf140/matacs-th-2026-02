@@ -1,0 +1,48 @@
+{
+  "version": "solar-v1",
+  "category": "Commercial Solar Installation",
+  "currency": "CAD",
+  "experience_window": "Last five years; sample assumption: accept since-2021 counts as the intended cohort. Require clarification for broader periods. Verify exact project dates operationally.",
+  "fields": [
+    {"id": "bidder_licence_stated", "type": "boolean", "description": "Bidder explicitly states its own Ontario electrical contractor licence. False when only a subcontractor licence is offered; null when unreadable or genuinely unclear."},
+    {"id": "wsib_confirmed", "type": "boolean", "description": "WSIB clearance explicitly confirmed."},
+    {"id": "liability_cad", "type": "number", "description": "Confirmed liability insurance coverage in CAD."},
+    {"id": "price_cad", "type": "number", "description": "Total all-in project price in CAD; null if totals conflict or currency is unclear."},
+    {"id": "duration_weeks", "type": "number", "description": "Confirmed completion weeks from award; null if deferred or unspecified."},
+    {"id": "qualifying_projects", "type": "integer", "description": "Count of commercial projects of at least 100 kW within the configured experience window; null when the stated period is broader and the qualifying subset is unknown."},
+    {"id": "panel_warranty_years", "type": "number", "description": "Panel warranty length in years."},
+    {"id": "workmanship_warranty_years", "type": "number", "description": "Workmanship warranty length in years."},
+    {"id": "named_lead_stated", "type": "boolean", "description": "Named project lead/manager explicitly stated; a future assignment is false. Accept the sample summaries' statement that a lead is named."},
+    {"id": "crew_stated", "type": "boolean", "description": "Delivery crew explicitly described."},
+    {"id": "safety_plan_stated", "type": "boolean", "description": "Site safety plan explicitly included."},
+    {"id": "monitoring_stated", "type": "boolean", "description": "Performance monitoring explicitly included; ordinary progress reports alone do not qualify."}
+  ],
+  "requirements": [
+    {"id": "licence", "field": "bidder_licence_stated", "op": "is_true", "reason": "Bidder's own Ontario electrical contractor licence is not stated."},
+    {"id": "wsib", "field": "wsib_confirmed", "op": "is_true", "reason": "WSIB clearance is not confirmed."},
+    {"id": "insurance", "field": "liability_cad", "op": "gte", "value": 5000000, "reason": "Confirmed liability coverage is below CAD 5M."},
+    {"id": "budget", "field": "price_cad", "op": "lte", "value": 260000, "reason": "Total price exceeds the configured budget ceiling."},
+    {"id": "deadline", "field": "duration_weeks", "op": "lte", "value": 16, "reason": "Completion exceeds the configured deadline."}
+  ],
+  "review_warning_codes": ["instruction_attempt", "experience_window_unclear", "contradictory_facts", "unreadable_source"],
+  "warning_reasons": {
+    "instruction_attempt": "Untrusted document instructions require reviewer acknowledgement; they have no scoring authority.",
+    "experience_window_unclear": "Experience period needs clarification before a qualifying project count can be scored.",
+    "contradictory_facts": "Conflicting facts need human resolution.",
+    "unreadable_source": "Source extraction needs human review."
+  },
+  "criteria": [
+    {"id": "experience", "label": "Relevant experience", "weight": 30, "kind": "target", "field": "qualifying_projects", "target": 10},
+    {"id": "price", "label": "Price", "weight": 25, "kind": "inverse_linear", "field": "price_cad", "full_at": 200000, "zero_at": 260000},
+    {"id": "timeline", "label": "Timeline", "weight": 15, "kind": "inverse_linear", "field": "duration_weeks", "full_at": 10, "zero_at": 16},
+    {"id": "warranty", "label": "Warranty", "weight": 15, "kind": "composite", "parts": [
+      {"field": "panel_warranty_years", "target": 25, "share": 0.5},
+      {"field": "workmanship_warranty_years", "target": 12, "share": 0.5}
+    ]},
+    {"id": "team", "label": "Team and approach", "weight": 15, "kind": "checklist", "fields": ["named_lead_stated", "crew_stated", "safety_plan_stated", "monitoring_stated"]}
+  ],
+  "tie_break": [
+    {"source": "criterion", "field": "experience", "direction": "desc"},
+    {"source": "fact", "field": "price_cad", "direction": "asc"}
+  ]
+}

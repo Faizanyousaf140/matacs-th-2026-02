@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+.env
+.env.*
+!.env.example
+.private/
+.local-demo/
+.local-*/
+*.zip
+*.bundle
+.DS_Store
+Thumbs.db
