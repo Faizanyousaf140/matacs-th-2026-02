@@ -2,7 +2,17 @@
 
 **Candidate:** Muhammad Faizan Yousaf  
 **Reference:** MATACS-TH-2026-02  
-**Time spent:** In progress; record the actual total after the final review.
+**Time spent:** Approximately 3.5 hours, estimated from the breakdown below.
+
+| Activity | Estimated time spent |
+| --- | --- |
+| Understanding the brief | 30-40 minutes |
+| Planning the process and evaluation rules | 40-60 minutes |
+| Coding and revisions | 60-80 minutes |
+| Testing and debugging | 20-40 minutes |
+| Final review | 10-20 minutes |
+| GitHub setup and push | 10-20 minutes |
+| Total estimated range | 170-260 minutes |
 
 This design uses AI to extract proposal facts and fixed rules to check
 eligibility and calculate scores. Criteria are configurable, each result has
@@ -48,9 +58,21 @@ and the [verification record](prototype/VERIFICATION.md) for test coverage.
 
 ## AI-use disclosure
 
-I used ChatGPT to help prepare the design, prompts, diagram and prototype.
-During testing, I corrected a Windows encoding issue in the generated test code
-and reran the demo and test suite to check the fix.
+I used ChatGPT to draft the design, scoring approach, prompts, diagram and
+prototype, then reviewed the output and tested the result. I corrected a
+generated test that relied on the system's default encoding because it failed
+to read the UTF-8 write-up on Windows. I specified UTF-8 explicitly and reran
+the demo and test suite successfully.
+
+## Data and assumptions
+
+- Demo inputs are derived only from the five fictional proposals supplied in
+  the assessment. No real client data is used.
+- The original brief and proposal text are excluded from the repository.
+- API credentials are read from environment variables. `.env.example` contains
+  empty settings; no API keys are included.
+- The write-up records the scoring anchors, budget/deadline eligibility policy,
+  experience-window interpretation and missing-information assumptions.
 
 ## Optional files
 
@@ -64,6 +86,5 @@ and reran the demo and test suite to check the fix.
 - [Environment-variable template](.env.example)
 - [Ignored private/generated files](.gitignore)
 
-The repository contains derived sample facts rather than the original brief or
-proposal text. The offline demo does not call an AI service; the optional live
-extraction client is covered by mocked API tests.
+The offline demo does not call an AI service. The optional live extraction
+client is covered by mocked API tests.
