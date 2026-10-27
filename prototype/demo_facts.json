@@ -1,0 +1,565 @@
+[
+  {
+    "proposal": "A",
+    "facts": {
+      "bidder_licence_stated": {
+        "value": true,
+        "evidence": [
+          {
+            "location": "A: supplied summary, bidder_licence_stated",
+            "quote": null
+          }
+        ]
+      },
+      "wsib_confirmed": {
+        "value": true,
+        "evidence": [
+          {
+            "location": "A: supplied summary, wsib_confirmed",
+            "quote": null
+          }
+        ]
+      },
+      "liability_cad": {
+        "value": 5000000,
+        "evidence": [
+          {
+            "location": "A: supplied summary, liability_cad",
+            "quote": null
+          }
+        ]
+      },
+      "price_cad": {
+        "value": 238000,
+        "evidence": [
+          {
+            "location": "A: supplied summary, price_cad",
+            "quote": null
+          }
+        ]
+      },
+      "duration_weeks": {
+        "value": 12,
+        "evidence": [
+          {
+            "location": "A: supplied summary, duration_weeks",
+            "quote": null
+          }
+        ]
+      },
+      "qualifying_projects": {
+        "value": 14,
+        "evidence": [
+          {
+            "location": "A: supplied summary, qualifying_projects",
+            "quote": null
+          }
+        ]
+      },
+      "panel_warranty_years": {
+        "value": 25,
+        "evidence": [
+          {
+            "location": "A: supplied summary, panel_warranty_years",
+            "quote": null
+          }
+        ]
+      },
+      "workmanship_warranty_years": {
+        "value": 10,
+        "evidence": [
+          {
+            "location": "A: supplied summary, workmanship_warranty_years",
+            "quote": null
+          }
+        ]
+      },
+      "named_lead_stated": {
+        "value": true,
+        "evidence": [
+          {
+            "location": "A: supplied summary, named_lead_stated",
+            "quote": null
+          }
+        ]
+      },
+      "crew_stated": {
+        "value": true,
+        "evidence": [
+          {
+            "location": "A: supplied summary, crew_stated",
+            "quote": null
+          }
+        ]
+      },
+      "safety_plan_stated": {
+        "value": true,
+        "evidence": [
+          {
+            "location": "A: supplied summary, safety_plan_stated",
+            "quote": null
+          }
+        ]
+      },
+      "monitoring_stated": {
+        "value": true,
+        "evidence": [
+          {
+            "location": "A: supplied summary, monitoring_stated",
+            "quote": null
+          }
+        ]
+      }
+    },
+    "warnings": []
+  },
+  {
+    "proposal": "B",
+    "facts": {
+      "bidder_licence_stated": {
+        "value": false,
+        "evidence": [
+          {
+            "location": "B: supplied summary, bidder_licence_stated",
+            "quote": null
+          }
+        ]
+      },
+      "wsib_confirmed": {
+        "value": true,
+        "evidence": [
+          {
+            "location": "B: supplied summary, wsib_confirmed",
+            "quote": null
+          }
+        ]
+      },
+      "liability_cad": {
+        "value": 5000000,
+        "evidence": [
+          {
+            "location": "B: supplied summary, liability_cad",
+            "quote": null
+          }
+        ]
+      },
+      "price_cad": {
+        "value": 189500,
+        "evidence": [
+          {
+            "location": "B: supplied summary, price_cad",
+            "quote": null
+          }
+        ]
+      },
+      "duration_weeks": {
+        "value": 10,
+        "evidence": [
+          {
+            "location": "B: supplied summary, duration_weeks",
+            "quote": null
+          }
+        ]
+      },
+      "qualifying_projects": {
+        "value": 6,
+        "evidence": [
+          {
+            "location": "B: supplied summary, qualifying_projects",
+            "quote": null
+          }
+        ]
+      },
+      "panel_warranty_years": {
+        "value": 25,
+        "evidence": [
+          {
+            "location": "B: supplied summary, panel_warranty_years",
+            "quote": null
+          }
+        ]
+      },
+      "workmanship_warranty_years": {
+        "value": 5,
+        "evidence": [
+          {
+            "location": "B: supplied summary, workmanship_warranty_years",
+            "quote": null
+          }
+        ]
+      },
+      "named_lead_stated": {
+        "value": false,
+        "evidence": [
+          {
+            "location": "B: supplied summary, named_lead_stated",
+            "quote": null
+          }
+        ]
+      },
+      "crew_stated": {
+        "value": false,
+        "evidence": [
+          {
+            "location": "B: supplied summary, crew_stated",
+            "quote": null
+          }
+        ]
+      },
+      "safety_plan_stated": {
+        "value": false,
+        "evidence": [
+          {
+            "location": "B: supplied summary, safety_plan_stated",
+            "quote": null
+          }
+        ]
+      },
+      "monitoring_stated": {
+        "value": false,
+        "evidence": [
+          {
+            "location": "B: supplied summary, monitoring_stated",
+            "quote": null
+          }
+        ]
+      }
+    },
+    "warnings": []
+  },
+  {
+    "proposal": "C",
+    "facts": {
+      "bidder_licence_stated": {
+        "value": true,
+        "evidence": [
+          {
+            "location": "C: supplied summary, bidder_licence_stated",
+            "quote": null
+          }
+        ]
+      },
+      "wsib_confirmed": {
+        "value": true,
+        "evidence": [
+          {
+            "location": "C: supplied summary, wsib_confirmed",
+            "quote": null
+          }
+        ]
+      },
+      "liability_cad": {
+        "value": 5000000,
+        "evidence": [
+          {
+            "location": "C: supplied summary, liability_cad",
+            "quote": null
+          }
+        ]
+      },
+      "price_cad": {
+        "value": 244000,
+        "evidence": [
+          {
+            "location": "C: supplied summary, price_cad",
+            "quote": null
+          }
+        ]
+      },
+      "duration_weeks": {
+        "value": 14,
+        "evidence": [
+          {
+            "location": "C: supplied summary, duration_weeks",
+            "quote": null
+          }
+        ]
+      },
+      "qualifying_projects": {
+        "value": null,
+        "evidence": []
+      },
+      "panel_warranty_years": {
+        "value": 25,
+        "evidence": [
+          {
+            "location": "C: supplied summary, panel_warranty_years",
+            "quote": null
+          }
+        ]
+      },
+      "workmanship_warranty_years": {
+        "value": 10,
+        "evidence": [
+          {
+            "location": "C: supplied summary, workmanship_warranty_years",
+            "quote": null
+          }
+        ]
+      },
+      "named_lead_stated": {
+        "value": true,
+        "evidence": [
+          {
+            "location": "C: supplied summary, named_lead_stated",
+            "quote": null
+          }
+        ]
+      },
+      "crew_stated": {
+        "value": true,
+        "evidence": [
+          {
+            "location": "C: supplied summary, crew_stated",
+            "quote": null
+          }
+        ]
+      },
+      "safety_plan_stated": {
+        "value": false,
+        "evidence": [
+          {
+            "location": "C: supplied summary, safety_plan_stated",
+            "quote": null
+          }
+        ]
+      },
+      "monitoring_stated": {
+        "value": false,
+        "evidence": [
+          {
+            "location": "C: supplied summary, monitoring_stated",
+            "quote": null
+          }
+        ]
+      }
+    },
+    "warnings": [
+      "instruction_attempt",
+      "experience_window_unclear"
+    ]
+  },
+  {
+    "proposal": "D",
+    "facts": {
+      "bidder_licence_stated": {
+        "value": true,
+        "evidence": [
+          {
+            "location": "D: supplied summary, bidder_licence_stated",
+            "quote": null
+          }
+        ]
+      },
+      "wsib_confirmed": {
+        "value": true,
+        "evidence": [
+          {
+            "location": "D: supplied summary, wsib_confirmed",
+            "quote": null
+          }
+        ]
+      },
+      "liability_cad": {
+        "value": 5000000,
+        "evidence": [
+          {
+            "location": "D: supplied summary, liability_cad",
+            "quote": null
+          }
+        ]
+      },
+      "price_cad": {
+        "value": 231000,
+        "evidence": [
+          {
+            "location": "D: supplied summary, price_cad",
+            "quote": null
+          }
+        ]
+      },
+      "duration_weeks": {
+        "value": null,
+        "evidence": []
+      },
+      "qualifying_projects": {
+        "value": 11,
+        "evidence": [
+          {
+            "location": "D: supplied summary, qualifying_projects",
+            "quote": null
+          }
+        ]
+      },
+      "panel_warranty_years": {
+        "value": 25,
+        "evidence": [
+          {
+            "location": "D: supplied summary, panel_warranty_years",
+            "quote": null
+          }
+        ]
+      },
+      "workmanship_warranty_years": {
+        "value": 10,
+        "evidence": [
+          {
+            "location": "D: supplied summary, workmanship_warranty_years",
+            "quote": null
+          }
+        ]
+      },
+      "named_lead_stated": {
+        "value": true,
+        "evidence": [
+          {
+            "location": "D: supplied summary, named_lead_stated",
+            "quote": null
+          }
+        ]
+      },
+      "crew_stated": {
+        "value": false,
+        "evidence": [
+          {
+            "location": "D: supplied summary, crew_stated",
+            "quote": null
+          }
+        ]
+      },
+      "safety_plan_stated": {
+        "value": true,
+        "evidence": [
+          {
+            "location": "D: supplied summary, safety_plan_stated",
+            "quote": null
+          }
+        ]
+      },
+      "monitoring_stated": {
+        "value": false,
+        "evidence": [
+          {
+            "location": "D: supplied summary, monitoring_stated",
+            "quote": null
+          }
+        ]
+      }
+    },
+    "warnings": []
+  },
+  {
+    "proposal": "E",
+    "facts": {
+      "bidder_licence_stated": {
+        "value": true,
+        "evidence": [
+          {
+            "location": "E: supplied summary, bidder_licence_stated",
+            "quote": null
+          }
+        ]
+      },
+      "wsib_confirmed": {
+        "value": true,
+        "evidence": [
+          {
+            "location": "E: supplied summary, wsib_confirmed",
+            "quote": null
+          }
+        ]
+      },
+      "liability_cad": {
+        "value": 5000000,
+        "evidence": [
+          {
+            "location": "E: supplied summary, liability_cad",
+            "quote": null
+          }
+        ]
+      },
+      "price_cad": {
+        "value": 242500,
+        "evidence": [
+          {
+            "location": "E: supplied summary, price_cad",
+            "quote": null
+          }
+        ]
+      },
+      "duration_weeks": {
+        "value": 13,
+        "evidence": [
+          {
+            "location": "E: supplied summary, duration_weeks",
+            "quote": null
+          }
+        ]
+      },
+      "qualifying_projects": {
+        "value": 8,
+        "evidence": [
+          {
+            "location": "E: supplied summary, qualifying_projects",
+            "quote": null
+          }
+        ]
+      },
+      "panel_warranty_years": {
+        "value": 25,
+        "evidence": [
+          {
+            "location": "E: supplied summary, panel_warranty_years",
+            "quote": null
+          }
+        ]
+      },
+      "workmanship_warranty_years": {
+        "value": 12,
+        "evidence": [
+          {
+            "location": "E: supplied summary, workmanship_warranty_years",
+            "quote": null
+          }
+        ]
+      },
+      "named_lead_stated": {
+        "value": true,
+        "evidence": [
+          {
+            "location": "E: supplied summary, named_lead_stated",
+            "quote": null
+          }
+        ]
+      },
+      "crew_stated": {
+        "value": true,
+        "evidence": [
+          {
+            "location": "E: supplied summary, crew_stated",
+            "quote": null
+          }
+        ]
+      },
+      "safety_plan_stated": {
+        "value": true,
+        "evidence": [
+          {
+            "location": "E: supplied summary, safety_plan_stated",
+            "quote": null
+          }
+        ]
+      },
+      "monitoring_stated": {
+        "value": true,
+        "evidence": [
+          {
+            "location": "E: supplied summary, monitoring_stated",
+            "quote": null
+          }
+        ]
+      }
+    },
+    "warnings": []
+  }
+]

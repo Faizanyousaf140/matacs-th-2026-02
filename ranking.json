@@ -1,0 +1,37 @@
+[
+  {
+    "proposal": "A",
+    "rank": 1,
+    "status": "ranked",
+    "score": 77.92,
+    "reason": "Eligible rank 1 by weighted total; experience 30/30, price 9.17/25, timeline 10/15, warranty 13.75/15, team 15/15."
+  },
+  {
+    "proposal": "E",
+    "rank": 2,
+    "status": "ranked",
+    "score": 68.79,
+    "reason": "Eligible rank 2 by weighted total; experience 24/30, price 7.29/25, timeline 7.5/15, warranty 15/15, team 15/15."
+  },
+  {
+    "proposal": "B",
+    "rank": null,
+    "status": "ineligible",
+    "score": null,
+    "reason": "Bidder's own Ontario electrical contractor licence is not stated."
+  },
+  {
+    "proposal": "C",
+    "rank": null,
+    "status": "flagged",
+    "score": null,
+    "reason": "Review required: Experience period needs clarification before a qualifying project count can be scored. Untrusted document instructions require reviewer acknowledgement; they have no scoring authority. Unknown fields: qualifying_projects."
+  },
+  {
+    "proposal": "D",
+    "rank": null,
+    "status": "flagged",
+    "score": null,
+    "reason": "Review required: Unknown fields: duration_weeks."
+  }
+]
