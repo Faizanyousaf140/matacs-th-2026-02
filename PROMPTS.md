@@ -50,7 +50,7 @@ documents are rejected explicitly, not silently truncated. The optional
 refusals, schema/types, proposal ID, and evidence quote matches. A warning
 detector adds an extra check for common injection phrases; it is not a complete
 injection defence. Human review and deterministic authority boundaries remain
-necessary. The live API path needs separately configured credentials and was
-not exercised against a live model during preparation.
+necessary. The live API path requires credentials; its request/response handling
+is tested with mocks.
 
 Reference: [OpenAI Structured Outputs documentation](https://developers.openai.com/api/docs/guides/structured-outputs?api-mode=responses).

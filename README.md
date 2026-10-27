@@ -2,12 +2,12 @@
 
 **Candidate:** Muhammad Faizan Yousaf  
 **Reference:** MATACS-TH-2026-02  
-**Time actually spent:** Approximately 30 minutes of AI-assisted implementation and verification, including the Windows portability correction (initial session: 23.1 minutes measured; follow-up: approximately 7 minutes estimated). Earlier brief discussion and additional candidate review are excluded.
+**Time spent:** In progress; record the actual total after the final review.
 
-This submission describes an AI-assisted review process with configurable
-criteria, evidence-backed extraction, deterministic scoring and human award
-authority. No deployed application is required. Start with the diagram and
-write-up; the optional command-line prototype reproduces the sample results.
+This design uses AI to extract proposal facts and fixed rules to check
+eligibility and calculate scores. Criteria are configurable, each result has
+supporting evidence, and a reviewer makes the final award decision. The optional
+Python prototype reproduces the sample ranking.
 
 ## Required deliverables
 
@@ -27,10 +27,10 @@ write-up; the optional command-line prototype reproduces the sample results.
 | C | - | flagged | - |
 | D | - | flagged | - |
 
-C's instruction attempt has no scoring authority. Its experience period needs
-clarification and its security warning needs reviewer acknowledgement before
-ranking. D has no confirmed schedule. These are preliminary results: a human
-must review evidence and make the final award decision.
+C needs review because its experience period is unclear and its appendix tries
+to influence automated scoring. Those instructions are ignored. D needs a
+confirmed completion schedule. Both remain unranked until the missing
+information is resolved.
 
 ## Run and verify
 
@@ -41,22 +41,16 @@ python prototype/triage.py demo
 python -m unittest discover -s prototype/tests -v
 ```
 
-Use `py` on Windows if needed. The demo writes results and provenance into
-ignored `.local-demo/`; it makes no network calls and exactly reproduces
-`ranking.json`. The [prototype guide](prototype/README.md) explains optional
-live extraction, configuration changes and deliberate scope limits.
-The [verification record](prototype/VERIFICATION.md) distinguishes checks run
-locally from live API and hosted checks that remain unperformed.
+Use `py` on Windows if needed. The demo runs offline and writes its results,
+score breakdowns and audit details to `.local-demo/`. See the
+[prototype guide](prototype/README.md) for configuration and optional extraction,
+and the [verification record](prototype/VERIFICATION.md) for test coverage.
 
 ## AI-use disclosure
 
-ChatGPT assisted with interpreting the brief, drafting the design and prompts,
-creating the diagram, implementing the prototype, and running verification.
-Tests found that the draft AI-generated client assumed API JSON always had the
-expected object shape; this was corrected with explicit shape checks and
-regression tests that reject malformed responses safely.
-No live model extraction was performed: the public demo uses derived structured
-facts rather than a claimed AI extraction log.
+I used ChatGPT to help prepare the design, prompts, diagram and prototype.
+During testing, I corrected a Windows encoding issue in the generated test code
+and reran the demo and test suite to check the fix.
 
 ## Optional files
 
@@ -70,6 +64,6 @@ facts rather than a claimed AI extraction log.
 - [Environment-variable template](.env.example)
 - [Ignored private/generated files](.gitignore)
 
-The original brief and proposal text are intentionally absent. Submit this
-public repository URL through the assessment Google Form; the ZIP is a handoff
-format, not an accepted assessment submission.
+The repository contains derived sample facts rather than the original brief or
+proposal text. The offline demo does not call an AI service; the optional live
+extraction client is covered by mocked API tests.

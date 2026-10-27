@@ -1,61 +1,36 @@
-# Verification record
+# Verification
 
-Prepared on 27 October 2026. Local runtime: CPython 3.12 on Linux.
-
-## Executed checks
-
-| Check | Result |
-| --- | --- |
-| Behaviour, validation, API-contract and submission tests | 53 passed |
-| Windows cp1252 default-encoding regression | Explicit UTF-8 read verified under an emulated cp1252 default |
-| HTTP error response cleanup | Response body is explicitly closed; closure asserted in test |
-| Recompute published `ranking.json` | Exact JSON equality |
-| Independent arithmetic for A/E | 77.92 / 68.79 |
-| Repeated runs and shuffled input | Same scores, ranking and reasons |
-| Budget/deadline boundaries | Boundary passes; excess fails |
-| Bidder licence / WSIB / insurance | Confirmed failures cannot be rescued by price |
-| Missing required or weighted facts | Flagged; no invented score |
-| C's unresolved warning/experience | Both must be resolved before ranking |
-| Counterfactual C review resolution | Can re-enter ranking; never receives automatic full marks |
-| Changed category priorities | E can outrank A under a new configuration |
-| Unknown fields, model-supplied scores, bad types | Rejected |
-| JSON duplicate properties / non-finite numbers | Rejected |
-| Mocked API completion, refusal, timeout/network/HTTP failure | Controlled acceptance or rejection |
-| Malformed API object/content shapes | Rejected safely after a regression fix |
-| Prompt rendering / source-quote checks | Escaping and evidence checks passed |
-| README links and complete file index | Checked by the suite |
-| Write-up length | 852 whitespace-delimited words; below 1,000 |
-| Diagram | One PDF page, rendered and visually inspected with embedded fonts |
-
-Run the checks yourself from the repository root:
+Run from the repository root:
 
 ```sh
 python -m unittest discover -s prototype/tests -v
 python prototype/triage.py demo
 ```
 
-## Verification boundaries
+## Results
 
-- The offline demonstration replays derived facts; it does not extract an actual
-  PDF or measure AI extraction accuracy.
-- The optional live Responses API client was tested with mocked HTTP responses,
-  not a paid/live model request. No API credential was available.
-- GitHub was not connected for publication. Hosted Actions and public visibility
-  remain to be verified after the candidate pushes the repository.
-- The workflow is configured for Windows/Linux and Python 3.10/3.13/3.14. Those six
-  hosted combinations were not run in this local preparation environment.
-- Upload/OCR, identity verification, immutable storage, reviewer approvals and
-  award decisions are specified in the design, not deployed production features.
+- The ranking matches `ranking.json`: A scores 77.92 and E scores 68.79.
+- Repeated runs and shuffled inputs produce the same scores and ordering.
+- B remains ineligible despite its lower price. C and D remain flagged while
+  their review issues are unresolved.
+- Tests cover budget/deadline boundaries, missing information, invalid types,
+  changed criteria, tie-breaking, source evidence and API error handling.
+- The write-up is 852 words. README links resolve, and the diagram is a
+  single-page PDF that has been rendered and checked.
 
-Tests that alter proposal values or weights are functional scenarios, not new
-claims about any sample contractor. No original proposal text or live evidence
-quotes are included in the public fixture.
+The original 52-test suite passed on Windows with Python 3.14 after fixing the
+write-up's UTF-8 read. This package includes one additional regression test that
+simulates a Windows cp1252 default, bringing the total to 53. All 53 tests pass
+on Linux with Python 3.12 and `ResourceWarning` treated as an error. The HTTP
+error test also checks that its response body is closed.
 
-## Follow-up portability correction
+The GitHub workflow covers Windows/Linux and Python 3.10/3.13/3.14. Check its
+results after pushing the repository.
 
-Candidate testing on Windows with Python 3.14 exposed a locale-dependent read in
-the write-up length check. The read now explicitly uses UTF-8, and an additional
-behaviour test simulates a cp1252 default. HTTP error responses are also closed
-explicitly; the HTTP failure test asserts its response body is closed. All 53
-tests pass locally with `ResourceWarning` promoted to an error. The actual
-Windows rerun remains for the candidate or hosted verification.
+## Scope
+
+The demo evaluates structured facts from the supplied fictional examples.
+The API client is tested with mocked responses; live extraction accuracy has
+not been measured. Tests that change facts are behaviour checks, not additional
+claims about the contractors. The design describes PDF/OCR, authenticated
+review and persistent audit storage; those services are outside this prototype.

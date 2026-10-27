@@ -20,18 +20,16 @@ C  rank= -  flagged     score=-
 D  rank= -  flagged     score=-
 ```
 
-The demo makes **no network call**. `demo_facts.json` is a manually structured,
-AI-assisted transcription of derived sample facts, not a live model response.
-It contains letters, numbers, booleans, source-location labels and warnings;
-no original proposal text is redistributed. Evidence quote values are withheld
-as null in this public fixture. Therefore offline replay does not demonstrate
-source-to-fact extraction accuracy or completed human approval.
+The demo runs offline using derived sample facts in `demo_facts.json`.
+The fixture includes source-location labels but omits the original proposal
+text and quotes. It demonstrates eligibility and scoring; live extraction
+accuracy needs a separate check against the source documents.
 
 The three generated files in ignored `.local-demo/` are `ranking.json`,
 `details.json` (contributions, holds, failures), and `audit.json` (versions,
 hashes, timestamp and a reproducible evaluation ID). Rerunning the demo replaces
-these local exports; an append-only operational audit store is only designed,
-not implemented. The evaluation ID excludes the run timestamp.
+these local exports. The evaluation ID excludes the run timestamp; persistent
+audit storage belongs to the full design.
 
 ## Configuration changes
 
@@ -46,7 +44,7 @@ All requirements, fields, weights, scoring anchors and tie-break references
 come from configuration. Invalid weights, types, references or anchors are
 rejected. The generic engine supports target, inverse-linear, composite and
 checklist rubrics; a new rubric *kind* would require an engine extension.
-The admin UI and immutable-version database are not built.
+The prototype reads a JSON configuration in place of the proposed admin UI.
 
 ## Optional AI extraction
 
@@ -85,12 +83,12 @@ response must be reviewed rather than treated as an empty eligible proposal.
 python prototype/triage.py rank --facts .private/reviewed-facts.json --out .local-reviewed
 ```
 
-`rank` validates structured inputs but cannot authenticate a reviewer's identity
-or prove they reviewed them. Persistent approval/override workflows are outside
-this small prototype. Warnings require explicit resolution in a new local input;
-they are never automatically cleared by ranking code. Tests that mutate C's
-facts demonstrate a counterfactual resolution, not a claim about C.
+`rank` validates structured inputs. The reviewer must resolve warnings in a new
+local input before scoring; the ranking code never clears them automatically.
+Reviewer authentication and persistent approvals belong to the full design.
+Tests that change C's facts check this behaviour rather than establish new facts
+about C.
 
-The live client contract is tested with mocked HTTP responses. **No live model
-call was made during preparation**, because no API credential was available.
-The tests do not prove a model will resist every prompt injection.
+API tests use mocked responses. Live extraction has not been run. Source review
+is still required because prompt instructions and keyword checks cannot catch
+every manipulation attempt.
