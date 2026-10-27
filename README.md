@@ -58,11 +58,9 @@ and the [verification record](prototype/VERIFICATION.md) for test coverage.
 
 ## AI-use disclosure
 
-I used ChatGPT to draft the design, scoring approach, prompts, diagram and
-prototype, then reviewed the output and tested the result. I corrected a
-generated test that relied on the system's default encoding because it failed
-to read the UTF-8 write-up on Windows. I specified UTF-8 explicitly and reran
-the demo and test suite successfully.
+I used ChatGPT for drafting and coding support, then reviewed and tested the
+output. I corrected a generated test to use UTF-8 because it failed with
+Windows' default encoding, and reran the tests successfully.
 
 ## Data and assumptions
 
