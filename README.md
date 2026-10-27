@@ -2,7 +2,7 @@
 
 **Candidate:** Muhammad Faizan Yousaf  
 **Reference:** MATACS-TH-2026-02  
-**Time actually spent:** Final session timing is recorded below before packaging.
+**Time actually spent:** 23.1 minutes of AI-assisted implementation and verification before packaging (27 Oct 2026, 22:13 to 22:36 Pakistan time). Earlier brief discussion and any additional candidate review are excluded.
 
 This submission describes an AI-assisted review process with configurable
 criteria, evidence-backed extraction, deterministic scoring and human award
