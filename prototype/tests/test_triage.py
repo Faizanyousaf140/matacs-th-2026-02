@@ -330,11 +330,13 @@ class TriageTests(unittest.TestCase):
             self.live(self.response(row))
 
     def test_http_error_does_not_expose_response_body(self):
-        with mock.patch.object(t.request, "urlopen", side_effect=error.HTTPError(
-                t.ENDPOINT, 401, "private body", {}, None)):
+        body = io.BytesIO(b"private response body")
+        failure = error.HTTPError(t.ENDPOINT, 401, "private body", {}, body)
+        with mock.patch.object(t.request, "urlopen", side_effect=failure):
             with self.assertRaisesRegex(ValueError, "HTTP 401") as caught:
                 t.extract(self.config, "A", "text", "test-model", "unit-test-key")
         self.assertNotIn("private body", str(caught.exception))
+        self.assertTrue(body.closed)
 
     def test_network_error_is_controlled(self):
         for failure in [error.URLError("test"), TimeoutError("test")]:
@@ -381,10 +383,19 @@ class TriageTests(unittest.TestCase):
         self.assertEqual(len(diagrams), 1)
         self.assertEqual(diagrams[0].suffix, ".pdf")
         self.assertTrue(diagrams[0].read_bytes().startswith(b"%PDF"))
-        self.assertLessEqual(len((t.ROOT / "WRITEUP.md").read_text().split()), 1000)
+        self.assertLessEqual(len((t.ROOT / "WRITEUP.md").read_text(encoding="utf-8").split()), 1000)
         rows = t.load(t.ROOT / "ranking.json")
         self.assertEqual({r["proposal"] for r in rows}, set("ABCDE"))
         self.assertEqual(set(rows[0]), {"proposal", "rank", "status", "score", "reason"})
+
+    def test_submission_contract_under_cp1252_default(self):
+        original = Path.read_text
+
+        def windows_default(path, encoding=None, errors=None):
+            return original(path, encoding=encoding or "cp1252", errors=errors)
+
+        with mock.patch.object(Path, "read_text", windows_default):
+            self.test_submission_file_contract()
 
     def test_demo_has_no_copied_source_quotes(self):
         for row in self.records:

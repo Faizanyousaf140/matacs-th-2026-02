@@ -357,7 +357,9 @@ def extract(config, proposal, text, model, api_key):
         with request.urlopen(req, timeout=30) as response:
             result = strict_loads(response.read().decode("utf-8"))
     except error.HTTPError as exc:
-        raise ValueError(f"Extraction API returned HTTP {exc.code}; no result was accepted") from None
+        status = exc.code
+        exc.close()
+        raise ValueError(f"Extraction API returned HTTP {status}; no result was accepted") from None
     except (error.URLError, TimeoutError):
         raise ValueError("Extraction network request failed; no result was accepted") from None
     if not isinstance(result, dict):

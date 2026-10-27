@@ -6,7 +6,9 @@ Prepared on 27 October 2026. Local runtime: CPython 3.12 on Linux.
 
 | Check | Result |
 | --- | --- |
-| Behaviour, validation, API-contract and submission tests | 52 passed |
+| Behaviour, validation, API-contract and submission tests | 53 passed |
+| Windows cp1252 default-encoding regression | Explicit UTF-8 read verified under an emulated cp1252 default |
+| HTTP error response cleanup | Response body is explicitly closed; closure asserted in test |
 | Recompute published `ranking.json` | Exact JSON equality |
 | Independent arithmetic for A/E | 77.92 / 68.79 |
 | Repeated runs and shuffled input | Same scores, ranking and reasons |
@@ -40,7 +42,7 @@ python prototype/triage.py demo
   not a paid/live model request. No API credential was available.
 - GitHub was not connected for publication. Hosted Actions and public visibility
   remain to be verified after the candidate pushes the repository.
-- The workflow is configured for Windows/Linux and Python 3.10/3.13. Those four
+- The workflow is configured for Windows/Linux and Python 3.10/3.13/3.14. Those six
   hosted combinations were not run in this local preparation environment.
 - Upload/OCR, identity verification, immutable storage, reviewer approvals and
   award decisions are specified in the design, not deployed production features.
@@ -48,3 +50,12 @@ python prototype/triage.py demo
 Tests that alter proposal values or weights are functional scenarios, not new
 claims about any sample contractor. No original proposal text or live evidence
 quotes are included in the public fixture.
+
+## Follow-up portability correction
+
+Candidate testing on Windows with Python 3.14 exposed a locale-dependent read in
+the write-up length check. The read now explicitly uses UTF-8, and an additional
+behaviour test simulates a cp1252 default. HTTP error responses are also closed
+explicitly; the HTTP failure test asserts its response body is closed. All 53
+tests pass locally with `ResourceWarning` promoted to an error. The actual
+Windows rerun remains for the candidate or hosted verification.
